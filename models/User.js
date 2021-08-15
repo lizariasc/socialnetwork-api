@@ -12,10 +12,7 @@ const UserSchema = new Schema(
         type: String,
         required: true,
         unique: true,
-        match: [
-            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-            "Please enter a valid email address",
-          ],
+        match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/]
     },
     thoughts: [{
         type: Schema.Types.ObjectId,
@@ -35,13 +32,13 @@ const UserSchema = new Schema(
     }
 )
 
-// get total count of friends on retrieval
+// get total count of friends
 UserSchema.virtual('friendCount').get(function() {
     return this.friends.length;
 })
 
 // create the Users model using the Users Schema
-const User = model('User', UserSchema);
+const Users = model('User', UserSchema);
 
 // Export Users module
-module.exports = User;
+module.exports = Users;
